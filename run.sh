@@ -2,6 +2,7 @@
 set -e
 
 # Build parameters.yml
+service apache2 stop
 cat << EOF > /src/app/config/parameters.yml
 parameters:
   database_driver: pdo_mysql
@@ -10,7 +11,7 @@ parameters:
   database_name: ${DATABASE_NAME}
   database_user: ${DATABASE_USER}
   database_password: ${DATABASE_PASSWORD}
-  locale: en
+  locale: fr
   secret: ThisTokenIsNotSoSecretChangeIt
 EOF
 
@@ -19,4 +20,4 @@ php app/console pim:install --env=prod
 
 chown www-data:www-data /src -R
 source /etc/apache2/envvars
-exec apache2 -D FOREGROUND
+exec apache2-foreground
